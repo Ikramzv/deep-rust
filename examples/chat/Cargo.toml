@@ -1,0 +1,11 @@
+[package]
+name = "chat"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+axum = { workspace = true, features = ["ws"]}
+tokio = { workspace = true }
+futures = "0.3"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

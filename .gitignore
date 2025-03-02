@@ -1,0 +1,8 @@
+# Target directory
+target
+
+#  Environment variables
+.env
+
+#  Cargo lock file
+Cargo.lock

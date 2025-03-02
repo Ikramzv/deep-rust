@@ -1,0 +1,12 @@
+[package]
+name = "deep-axum"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+axum.workspace = true
+tokio.workspace = true
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+dotenv = "0.15.0"

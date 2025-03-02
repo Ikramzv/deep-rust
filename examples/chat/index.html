@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      input {
+        width: min(500px, 90vw);
+        height: 40px;
+        border-radius: 12px;
+        padding-inline: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+
+      textarea#input {
+        width: min(500px, 90vw);
+        min-height: 120px;
+        border-radius: 12px;
+        padding-inline: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        display: block;
+        margin-top: 10px;
+      }
+
+      #join-chat {
+        width: 100px;
+        height: 40px;
+        border-radius: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      #messages {
+        padding: 20px;
+        font-size: 16px;
+        color: #333;
+
+        .message {
+          padding: 10px;
+          margin-bottom: 10px;
+          border-radius: 12px;
+          background-color: #f0f0f092;
+        }
+      }
+    </style>
+
+    <title>Web Socket Chat</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>WebSocket Chat example</h1>
+      <div class="join-chat-container">
+        <input type="text" id="username" placeholder="Username" />
+        <button id="join-chat">Join</button>
+      </div>
+
+      <div class="chat-container">
+        <div id="messages"></div>
+        <textarea name="input" id="input"></textarea>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const username = document.getElementById("username");
+    const joinChat = document.getElementById("join-chat");
+    const messages = document.getElementById("messages");
+
+    joinChat.addEventListener("click", () => {
+      joinChat.disabled = true;
+
+      const ws = new WebSocket("ws://localhost:3000/ws");
+
+      ws.onopen = () => {
+        console.log("connection opened");
+        joinChat.disabled = false;
+        ws.send(username.value);
+      };
+
+      ws.onmessage = (e) => {
+        console.log("received message", e.data);
+        const message = document.createElement("div");
+        message.classList.add("message");
+        message.textContent = e.data;
+        messages.appendChild(message);
+      };
+
+      ws.onclose = () => {
+        console.log("connection closed");
+      };
+
+      ws.onerror = (e) => {
+        console.log("connection error", e);
+      };
+
+      input.onkeydown = (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const message = input.value;
+          ws.send(message);
+          input.value = "";
+        }
+      };
+    });
+  </script>
+</html>

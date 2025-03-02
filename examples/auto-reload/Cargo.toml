@@ -1,0 +1,9 @@
+[package]
+name = "auto-reload"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+axum = { workspace = true }
+tokio = { workspace = true }
+listenfd = "1.0.2"

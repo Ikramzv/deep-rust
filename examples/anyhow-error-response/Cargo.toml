@@ -1,0 +1,9 @@
+[package]
+name = "anyhow-error-response"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+axum = "0.8.1"
+anyhow = "1.0"
+tokio = { version = "1.39.0", features = ["full"] }
