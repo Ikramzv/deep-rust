@@ -1,13 +1,20 @@
+mod extractors;
+mod services;
+
 use std::sync::{Arc, Mutex};
 
 use axum::{
     extract::State,
+    http::StatusCode,
+    response::IntoResponse,
     routing::{get, post},
-    Router,
+    Extension, Router,
 };
 use tokio::net::TcpListener;
 use tokio::sync::oneshot;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+use extractors::{AuthToken, User};
 
 struct AppState {
     shutdown: Option<oneshot::Sender<String>>,
@@ -52,8 +59,13 @@ async fn main() {
         .unwrap();
 }
 
-async fn index() -> &'static str {
-    "Hello, wrold"
+async fn index(
+    AuthToken(token): AuthToken,
+    Extension(user): Extension<Arc<User>>,
+) -> impl IntoResponse {
+    tracing::info!("Token: {}", token);
+
+    (StatusCode::OK, (*user).clone().into_response())
 }
 
 async fn on_shutdown(State(state): State<Arc<Mutex<AppState>>>) {
