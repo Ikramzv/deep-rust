@@ -1,0 +1,12 @@
+[package]
+name = "error-handling"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true}
+axum = { workspace = true, features = ["macros"]}
+serde = { workspace = true }
+tower-http = { version = "0.6.1", features = ["trace"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
