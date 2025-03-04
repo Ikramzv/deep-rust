@@ -4,14 +4,17 @@ mod services;
 use std::sync::{Arc, Mutex};
 
 use axum::{
-    extract::State,
+    extract::{Request, State},
     http::StatusCode,
+    middleware::Next,
     response::IntoResponse,
     routing::{get, post},
     Extension, Router,
 };
+
 use tokio::net::TcpListener;
 use tokio::sync::oneshot;
+use tower::ServiceBuilder;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use extractors::{AuthToken, User};
@@ -19,6 +22,8 @@ use extractors::{AuthToken, User};
 struct AppState {
     shutdown: Option<oneshot::Sender<String>>,
 }
+
+struct AppState2;
 
 #[tokio::main]
 async fn main() {
@@ -41,7 +46,34 @@ async fn main() {
     let app = Router::new()
         .route("/", get(index))
         .route("/shutdown", post(on_shutdown))
-        .with_state(app_state);
+        .with_state(app_state)
+        .with_state(Arc::new(AppState2))
+        .layer(
+            ServiceBuilder::new()
+                .layer(axum::middleware::from_fn(
+                    |mut req: Request, next: Next| async move {
+                        tracing::info!("Middleware 1");
+
+                        req.extensions_mut().insert("hello world");
+                        req.extensions_mut().insert("hello world 2");
+
+                        let response = next.run(req).await;
+
+                        response
+                    },
+                ))
+                .layer(axum::middleware::from_fn(
+                    |req: Request, next: Next| async move {
+                        tracing::info!("Middleware 2");
+
+                        tracing::info!("{:?}", req.extensions().get::<&'static str>());
+
+                        let response = next.run(req).await;
+
+                        response
+                    },
+                )),
+        );
 
     let listener = TcpListener::bind("localhost:3000").await.unwrap();
 

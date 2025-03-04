@@ -1,0 +1,12 @@
+[package]
+name = "dependency-injection"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true}
+axum = { workspace = true, features = ["macros"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
