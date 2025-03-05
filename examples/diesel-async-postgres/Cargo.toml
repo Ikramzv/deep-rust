@@ -1,0 +1,15 @@
+[package]
+name = "diesel-async-postgres"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+axum = { workspace = true, features = ["macros"] }
+dotenv = "0.15"
+bb8 = "0.8"
+diesel = "2"
+diesel-async = { version = "0.5", features = ["postgres", "bb8"] }
+serde = { workspace = true }
+tokio = { workspace = true }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
