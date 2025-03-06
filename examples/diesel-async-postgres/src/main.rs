@@ -5,16 +5,15 @@ mod schema;
 use std::sync::Arc;
 
 use axum::{
-    extract::{FromRef, State},
+    extract::State,
     response::IntoResponse,
     routing::{get, post},
     Json, Router,
 };
-use diesel::{query_dsl::methods::SelectDsl, Insertable, SelectableHelper};
+use diesel::{query_dsl::methods::SelectDsl, SelectableHelper};
 use diesel_async::{
     pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
 };
-use models::NewPost;
 use tokio::net::TcpListener;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -31,9 +30,10 @@ async fn main() {
 
     let app_config = config::Config::new();
 
-    let pool_config = AsyncDieselConnectionManager::<diesel_async::AsyncPgConnection>::new(
-        app_config.database_url,
-    );
+    let pool_config: AsyncDieselConnectionManager<AsyncPgConnection> =
+        AsyncDieselConnectionManager::<diesel_async::AsyncPgConnection>::new(
+            app_config.database_url,
+        );
 
     let pool = bb8::Pool::builder().build(pool_config).await.unwrap();
 
