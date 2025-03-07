@@ -4,7 +4,7 @@ use axum::{
     body::Body,
     response::{IntoResponse, Response},
     routing::get,
-    Json, Router,
+    Router,
 };
 use hyper::{body::Incoming, server::conn::http1, upgrade::Upgraded, Method, Request, StatusCode};
 use hyper_util::rt::TokioIo;
