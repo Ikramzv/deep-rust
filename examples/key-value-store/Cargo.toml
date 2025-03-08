@@ -1,0 +1,19 @@
+[package]
+name = "key-value-store"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true}
+axum =  { workspace = true }
+tower =  { version = "0.5.2", features = ["util", "timeout", "load-shed", "limit"] }
+tower-http = { version = "0.6.1", features = [
+    "add-extension",
+    "auth",
+    "compression-full",
+    "limit",
+    "trace",
+    "timeout"
+]}
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"]}
