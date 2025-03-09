@@ -1,0 +1,15 @@
+[package]
+name = "low-level-native-tls"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+futures-util = { version = "0.3", default-features = false }
+hyper = { version = "1.0.0", features = ["full"] }
+hyper-util = { version = "0.1" }
+tokio-native-tls = "0.3.1"
+tower-service = "0.3.2"
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
