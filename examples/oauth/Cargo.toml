@@ -1,0 +1,20 @@
+[package]
+name = "oauth"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow = "1"
+async-session = "3.0.0"
+dotenv = "0.15.0"
+axum = { workspace = true }
+axum-extra = { version = "0.10.0" ,features = ["typed-header"] }
+tokio = { workspace = true }
+http = "1.0.0"
+oauth2 = "4.1"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+serde = { workspace = true}
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+
