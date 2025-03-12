@@ -1,0 +1,12 @@
+[package]
+name = "prometheus-metrics"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+metrics = { version = "0.23", default-features = false}
+metrics-exporter-prometheus = { version = "0.15", default-features = false }
