@@ -1,0 +1,10 @@
+[package]
+name = "reverse-proxy"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+hyper = { version = "1.0.0", features = ["full"] }
+hyper-util = { version = "0.1.1", features = ["client-legacy"]}
