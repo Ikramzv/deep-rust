@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        padding-inline: 16px;
+      }
+
+      .message-container {
+        max-width: 750px;
+        margin-inline: auto;
+        min-height: 100vh;
+        background-color: #f0f0f0d3;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .message {
+          padding: 16px;
+          border-radius: 12px;
+          font-size: 1.2rem;
+
+          &.data {
+            background-color: #fff;
+          }
+
+          &.error {
+            background-color: rgb(250, 158, 158);
+            color: rgb(105, 0, 0);
+          }
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message-container"></div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
