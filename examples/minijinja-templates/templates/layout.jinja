@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: sans-serif;
+                padding: 1.5rem;
+            }
+        </style>
+        <title>
+            {% block title %} - Jinja with Rust {% endblock %}
+        </title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% for link in links %}
+                    <li>
+                        <a href="{{ link.href }}" >
+                            {{ link.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        {% block body %}{% endblock %}
+    </body>
+</html>

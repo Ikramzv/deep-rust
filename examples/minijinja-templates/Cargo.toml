@@ -1,0 +1,10 @@
+[package]
+name = "minininja-templates"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+axum = { workspace = true }
+serde = { workspace = true }
+minijinja = "2.8.0"

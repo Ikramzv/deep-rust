@@ -1,0 +1,12 @@
+{% extends "layout" %}
+{% block title %} {{ super() }} | {{ title }} {% endblock %}
+{% block body %}
+<h1>{{ title }}</h1>
+{% for entry in entries %}
+<ul>
+    <li>
+        {{ entry.name }}
+    </li>
+</ul>
+{% endfor %}
+{% endblock %}
