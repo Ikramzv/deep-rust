@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+
+    <button id="close">Close connection</button>
+    <script>
+      const ws = new WebSocket("ws://localhost:3000/ws");
+      ws.onmessage = function (e) {
+        console.log(e.data);
+      };
+
+      ws.onopen = function (e) {
+        console.log("connected");
+
+        ws.send("Hello from client");
+      };
+
+      ws.onclose = function (e) {
+        console.log("disconnected");
+      };
+
+      document.getElementById("close").addEventListener("click", function (e) {
+        ws.close();
+      });
+    </script>
+  </body>
+</html>
